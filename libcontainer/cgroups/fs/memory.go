@@ -66,15 +66,6 @@ func (s *MemoryGroup) Apply(d *cgroupData) (err error) {
 }
 
 func EnableKernelMemoryAccounting(path string) error {
-	// Check if kernel memory is enabled
-	// We have to limit the kernel memory here as it won't be accounted at all
-	// until a limit is set on the cgroup and limit cannot be set once the
-	// cgroup has children, or if there are already tasks in the cgroup.
-	for _, i := range []int64{1, -1} {
-		if err := setKernelMemory(path, i); err != nil {
-			return err
-		}
-	}
 	return nil
 }
 
